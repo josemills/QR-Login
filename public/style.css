@@ -45,6 +45,7 @@ body{
     cursor: pointer;
 }
 .container button.hidden{
+    margin-top: 50px;
     background-color: transparent;
     border-color: #fff;
 }
@@ -131,3 +132,33 @@ body{
     right: 0;
     transform: translateX(0);
 }
+
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 320px;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+}
+.card h1{
+    display: flex;
+    justify-content: center;
+}
+
+.card .text-one{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.card .text-two{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+

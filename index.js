@@ -13,22 +13,32 @@ const sessions = {}; // Almacenará las sesiones activas
 app.use(express.static('public'));
 app.use(express.json());
 
+const users = [{ email: 'test@test.cl', password: '1234' }];
+
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
+  const user = users.find((u) => u.email === email && u.password === password);
+
+  if (!user) {
+    return res.status(401).json({ error: 'Invalid email or password' });
+  }
+
+  res.json({ success: true });
+});
+
 app.get('/hello', async(req, res) => {
     res.send('hola mundo')
 }) 
 // Generar QR
 app.post('/generate-qr', async (req, res) => {
-  const sessionId = uuidv4();
-  const qrData = {
-    sessionId,
-    site: 'QR Login Site',
-    user: 'UsuarioLogeado',
-  };
-
-  sessions[sessionId] = { loggedIn: false };
-
-  const qrCode = await QRCode.toDataURL(JSON.stringify(qrData));
-  res.json({ qrCode });
+  const token = uuidv4();
+  const qrContent = JSON.stringify({ 
+    userName: users[0].email, 
+    token, 
+    redirectUrl: 'https://www.instagram.com/' // Cambia 'http://yourdomain.com' por tu dominio real
+  });
+  const qrCode = await QRCode.toDataURL(qrContent);
+  res.json({ qrCode, token });
 });
 
 // Validar QR

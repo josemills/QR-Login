@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR CODE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card">
+        <div class="">
+            <h1>QR Login</h1>
+            <img id="qr-code" src="" alt="QR Code">
+        </div>
+
+        <div class="text">
+            <span class="text-one">Bienvenido!</span>
+            <span class="text-two">Escanea el siguiente codigo
+            para iniciar sesión</span>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/generate-qr', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.qrCode) {
+                    document.getElementById('qr-code').src = data.qrCode;
+                } else {
+                    alert('Error generating QR code');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while generating the QR code.');
+            });
+        });
+    </script>
+</body>
+</html>
