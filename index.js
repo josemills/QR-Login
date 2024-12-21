@@ -39,7 +39,7 @@ app.post('/generate-qr', async (req, res) => {
   const qrContent = JSON.stringify({ 
     userName: users[0].email, 
     token, 
-    redirectUrl: 'https://www.instagram.com/' // Cambia 'http://yourdomain.com' por tu dominio real
+    redirectUrl: `${base}/success.html`
   });
   const qrCode = await QRCode.toDataURL(qrContent);
   res.json({ qrCode, token });
