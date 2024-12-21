@@ -1,4 +1,4 @@
-required('dotenv').config();
+require('dotenv').config();
 const base = process.env.BASE_URL;
 const port = process.env.PORT;
 
